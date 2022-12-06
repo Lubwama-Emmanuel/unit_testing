@@ -1,12 +1,26 @@
+const { sum, deleteUserById, findUserById } = require("./utils/file")
 
-const sum = require("./file")
 
-describe("Number test", () => {
-    test("test 1 + 2 must be 3", () => {
-        expect(sum(1, 2)).toBe(3)
-    })
+let userData = []
+console.log("Before anything", userData)
+beforeAll(() => {
+    userData = ['Rex', 'Emmanuel']
+
+    console.log("Before all tests run", userData)
 })
 
+beforeEach(() => {
+    console.log("Before each test runs")
+})
+
+afterEach(() => {
+    console.log("Runs after each test")
+})
+
+afterAll(() => {
+    userData = []
+    console.log("Runs after all tests have run", userData)
+})
 describe("testing other matcher methods", () => {
     test("testing whether a number is undefined", () => {
         let Number = null;
@@ -99,5 +113,66 @@ describe("Testing reference type equality", () => {
             name: expect.any(String),
             age: expect.any(Number)
         })]))
+    })
+})
+
+// Testing functions
+
+
+describe("Testing functions", () => {
+    test("test 1 + 2 must be 3", () => {
+        expect(sum(1, 2)).toBe(3)
+    })
+
+    test("Testing the delete user function", () => {
+        const users = [
+            {
+                name: "Emmanuel",
+                age: 12,
+                id: 1
+
+            },
+            {
+                name: "Rex",
+                age: 23,
+                id: 2
+
+            },
+            {
+                name: "Munil",
+                age: 14,
+                id: 3
+            }
+        ]
+        console.log(users.length)
+        expect(deleteUserById(users, 3).length).toEqual(users.length - 1)
+    })
+    // Done by test driven development
+    test("Should find user by id", () => {
+        const users = [
+            {
+                name: "Emmanuel",
+                age: 12,
+                id: 1
+
+            },
+            {
+                name: "Rex",
+                age: 23,
+                id: 2
+
+            },
+            {
+                name: "Munil",
+                age: 14,
+                id: 3
+            }
+        ]
+
+        expect(findUserById(users, 2)).toEqual({
+            name: "Rex",
+            age: 23,
+            id: 2
+        })
     })
 })
